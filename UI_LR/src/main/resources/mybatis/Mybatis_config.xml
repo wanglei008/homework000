@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 连接属性配置 -->
+	<properties resource="mybatis/SqlServer.properties"></properties>
+	<typeAliases>
+		<typeAlias type="cn.gyyx.logic.beans.User" alias="User"/>
+		<typeAlias type="cn.gyyx.logic.beans.UserMessage" alias="UserMessage"/>
+	</typeAliases>
+	<!-- 配置连接基本属性 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClassName}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 连接实体xml配置 -->
+	<mappers>
+		<mapper resource="mybatis/userMapping/usermapper.xml" />
+	</mappers>
+</configuration>

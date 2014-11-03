@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Dll.LandMapper">
+
+	<!-- 数据库中的字段与类的属性不一样 -->
+	<!-- type的值是实体类的绝对路径，id用于select等引用 -->
+	<!-- 自己定义一个resultMap用于select等的返回类型 -->
+	<!-- resultMap – 它描述如何将结果集映射到Java对象. -->
+	<!-- property类的属性  column数据库列名 -->
+	<resultMap type="jh.model.User" id="User">
+		<!-- 类的属性与数据库的属性对应 -->
+		<id property="code" column="code" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+	</resultMap>
+
+	<!-- id是调用的标识符，id必须与UserMapper的方法名一样，result定义的是返回类型 -->
+	<select id="selectUserName" resultType="String">
+		select UserName from User
+		where UserName=#{UserName};
+	</select>
+	<select id="select" resultMap="User">
+		select * from login_user_tb;
+	</select>
+	<select id="queryByName" resultMap="User">
+		select * from login_user_tb
+		where name=#{name};
+	</select>
+	<insert id="insertUser" parameterType="jh.model.User">
+		insert into login_user_tb
+		(code,name,password)
+		values (#{code},#{name},#{password})
+	</insert>
+	<update id="updateUser">
+		update login_user_tb set
+		name=#{name},
+		password=#{password}
+		where
+		code=#{code}
+	</update>
+	<delete id="deleteUser">
+		delete from User where code = #{code}
+	</delete>
+
+</mapper>

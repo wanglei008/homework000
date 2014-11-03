@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.gyyx.logic.dao.UserMapper">
+
+	<!-- 数据库中的字段与类的属性不一样 -->
+	<!-- type的值是实体类的绝对路径，id用于select等引用 -->
+	<!-- 自己定义一个resultMap用于select等的返回类型 -->
+	<!-- resultMap – 它描述如何将结果集映射到Java对象. -->
+	<!-- property类的属性  column数据库列名 -->
+	<resultMap type="cn.gyyx.logic.beans.User" id="User">
+		<!-- 类的属性与数据库的属性对应 -->
+		<id property="code" column="code" />
+		<result property="userName" column="username" />
+		<result property="passWord" column="password" />
+	</resultMap>
+	
+	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="code" >
+		insert into us_user_tb (username,password) 
+		values (#{userName},#{passWord})
+	</insert>
+	<select id="selectUser" resultType="User">
+		select * from us_user_tb 
+	</select>
+<!-- 	<insert id="insertUserM" parameterType="UserMessage" useGeneratedKeys="true" keyProperty="code">
+		insert into us_usermessage_tb(u_code,name,age,sex,phone,email,idcard)
+		values (#{u_code},#{name},#{age},#{sex},#{phone},#{email},#{idcard})
+	</insert>
+
+	<select id="selectpassword" parameterType="String" resultType="String">
+		select password from us_user_tb
+		where username=#{username}
+	</select>
+	<select id="selectidcard" parameterType="String" resultType="String">
+		select idcard from us_usermessage_tb
+		where idcard=#{idcard}
+	</select> -->
+</mapper>
